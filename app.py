@@ -10,6 +10,72 @@ from crypto_api import (
     get_symbol_from_name
 )
 from langchain_core.documents import Document
+from difflib import get_close_matches
+
+def extract_crypto_symbol(query: str):
+    top_50_cryptocurrencies = {
+        "BTC": "Bitcoin",
+        "ETH": "Ethereum",
+        "USDT": "Tether",
+        "BNB": "BNB",
+        "SOL": "Solana",
+        "XRP": "XRP",
+        "USDC": "USD Coin",
+        "DOGE": "Dogecoin",
+        "TON": "Toncoin",
+        "ADA": "Cardano",
+        "AVAX": "Avalanche",
+        "SHIB": "Shiba Inu",
+        "WTRX": "Wrapped TRON",
+        "DOT": "Polkadot",
+        "WBTC": "Wrapped Bitcoin",
+        "LINK": "Chainlink",
+        "MATIC": "Polygon",
+        "TRX": "TRON",
+        "ICP": "Internet Computer",
+        "NEAR": "NEAR Protocol",
+        "BCH": "Bitcoin Cash",
+        "LTC": "Litecoin",
+        "UNI": "Uniswap",
+        "LEO": "UNUS SED LEO",
+        "DAI": "Dai",
+        "APT": "Aptos",
+        "STETH": "Lido Staked Ether",
+        "ETC": "Ethereum Classic",
+        "IMX": "Immutable",
+        "MNT": "Mantle",
+        "OKB": "OKB",
+        "FDUSD": "First Digital USD",
+        "CRO": "Cronos",
+        "ARB": "Arbitrum",
+        "RNDR": "Render",
+        "HBAR": "Hedera",
+        "TAO": "Bittensor",
+        "FIL": "Filecoin",
+        "VET": "VeChain",
+        "INJ": "Injective",
+        "ATOM": "Cosmos",
+        "STX": "Stacks",
+        "TIA": "Celestia",
+        "OP": "Optimism",
+        "PEPE": "Pepe",
+        "KAS": "Kaspa",
+        "LDO": "Lido DAO",
+        "GRT": "The Graph",
+        "USDP": "Pax Dollar",
+        "RUNE": "THORChain"
+    }
+
+    query = query.lower()
+    for name in top_50_cryptocurrencies:
+        if name in query:
+            return top_50_cryptocurrencies[name]
+
+    matches = get_close_matches(query, top_50_cryptocurrencies.keys(), n=1, cutoff=0.6)
+    if matches:
+        return top_50_cryptocurrencies[matches[0]]
+
+    return None
 
 # Set up Streamlit page
 st.set_page_config(
@@ -55,11 +121,10 @@ if prompt := st.chat_input("Ask something like: 'What's the market cap of Solana
         with st.spinner("Fetching data..."):
             try:
                 user_query = prompt.lower()
+                symbol = extract_crypto_symbol(user_query)
 
-                # Identify crypto symbol
-                symbol = get_symbol_from_name(user_query)
                 if not symbol:
-                    raise ValueError("Cryptocurrency not recognized. Try a different name.")
+                    raise ValueError("Error, no information about this token")
 
                 # Pull data
                 price_info = get_price_from_exchange(symbol)
