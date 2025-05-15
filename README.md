@@ -18,9 +18,9 @@ This project is an AI-powered assistant designed to answer user queries about th
 * **AI Model**: GPT-based model (e.g., via Ollama)
 * **Data Sources**:
 
-  * News API: CryptoPanic, Cointelegraph, or similar
-  * Exchange API: Binance, Coinbase, Kraken
-  * Market Data API: CoinGecko, CoinMarketCap
+  * News API: CryptoPanic
+  * Exchange API: CoinGecko
+  * Market Data API: CoinMarketCap
 * **Vector Store**: ChromaDB
 * **Libraries**: LangChain, Requests, etc.
 
