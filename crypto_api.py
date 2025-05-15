@@ -53,10 +53,6 @@ def get_latest_news(symbol: str, limit: int = 5):
         return [{"error": f"Error fetching news: {e}"}]
 
 def get_price_from_exchange(symbol: str):
-    """
-    Получить текущую цену криптовалюты из CoinGecko.
-    symbol: тикер монеты, например 'btc' или 'eth'.
-    """
     try:
         mapping_url = "https://api.coingecko.com/api/v3/coins/list"
         all_coins = requests.get(mapping_url).json()
