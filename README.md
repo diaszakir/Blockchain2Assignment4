@@ -89,8 +89,14 @@ Once the application is running, you can interact with the AI assistant through 
 
 The assistant will fetch and aggregate data from the specified sources and provide a comprehensive response.
 
-## 📸 Demo
 
+## Collaborators
+
+Dias Zakir SE-2320
+
+Anvar Tamabayev SE-2320
+
+Danel Kanbakova SE-2320
 
 
 
